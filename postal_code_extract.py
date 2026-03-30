@@ -54,14 +54,9 @@ def file_to_region_url(file_path):
 
 def flush_batch(batch):
     if batch:
-        try:
-            print(f"Insert Query | Table: postal_codes | Rows: {len(batch)}")
-            insert_postal_codes(batch)
-            batch.clear()
-        except Exception as e:
-            with print_lock:
-                print(f"Insert Error -> {e}")
-
+        print(f"Insert Query | Table: postal_codes | Rows: {len(batch)}")
+        insert_postal_codes(batch)
+        batch.clear()
 
 def process_files(file_chunk):
     batch = []
@@ -110,7 +105,6 @@ def get_all_gz_files(path):
 def chunk_list(data, chunk_size):
     for i in range(0, len(data), chunk_size):
         yield data[i:i + chunk_size]
-
 
 def main_postal():
     create_postal_table()
